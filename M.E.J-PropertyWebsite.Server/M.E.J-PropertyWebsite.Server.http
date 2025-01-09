@@ -1,0 +1,6 @@
+@M.E.J_PropertyWebsite.Server_HostAddress = http://localhost:5116
+
+GET {{M.E.J_PropertyWebsite.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
