@@ -1,3 +1,5 @@
+using M.E.J_PropertyWebsite.Server.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace M.E.J_PropertyWebsite.Server
 {
@@ -9,7 +11,12 @@ namespace M.E.J_PropertyWebsite.Server
 
             // Add services to the container.
 
+            // Register the ServerDBContext with the connection string from appsettings.json
+            builder.Services.AddDbContext<ServerDBContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             builder.Services.AddControllers();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -29,7 +36,6 @@ namespace M.E.J_PropertyWebsite.Server
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using M.E.J_PropertyWebsite.Server.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace M.E.J_PropertyWebsite.Server.Database
 {
@@ -7,6 +8,8 @@ namespace M.E.J_PropertyWebsite.Server.Database
 		public ServerDBContext(DbContextOptions<ServerDBContext> options) : base(options)
 		{
 		}
-	
-	}
+
+        public DbSet<Admin> Admins { get; set; }
+
+    }
 }
