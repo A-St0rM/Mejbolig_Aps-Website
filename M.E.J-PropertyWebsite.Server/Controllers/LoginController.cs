@@ -8,9 +8,9 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
-        private readonly ServerDBContext _context;
+        private readonly AzureDBContext _context;
 
-        public LoginController(ServerDBContext context)
+        public LoginController(AzureDBContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 				return BadRequest("Username or password is missing.");
 			}
 
-			var admin = _context.Admins.FirstOrDefault(a => a.UserName == loginRequest.UserName && a.Password == loginRequest.Password);
+			var admin = _context.Admin.FirstOrDefault(a => a.UserName == loginRequest.UserName && a.Password == loginRequest.Password);
 
 			if (admin == null)
 			{
