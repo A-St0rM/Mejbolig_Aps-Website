@@ -12,7 +12,19 @@ namespace M.E.J_PropertyWebsite.Server
             builder.Services.AddDbContext<ServerDBContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddDbContext<AzureDBContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnection")));
+
             builder.Services.AddControllers();
+
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -28,6 +40,8 @@ namespace M.E.J_PropertyWebsite.Server
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSession();
 
             app.UseAuthorization();
 
