@@ -1,4 +1,5 @@
 ﻿using M.E.J_PropertyWebsite.Server.Database;
+using M.E.J_PropertyWebsite.Server.DTO;
 using M.E.J_PropertyWebsite.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,7 +33,14 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 
 			HttpContext.Session.SetString("isAuthenticated", "true");
 
-			return Ok(new { Message = "Login successful!" });
+			var adminDTO = new AdminDTO
+            {
+                Id = admin.Id,
+                UserName = admin.UserName,
+                LoginMessage = "Login successful."
+            };
+
+			return Ok(adminDTO);
 		}
 
 	}
