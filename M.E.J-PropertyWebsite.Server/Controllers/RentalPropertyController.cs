@@ -10,9 +10,9 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 	[Route("api/[controller]")]
 	public class RentalPropertyController : ControllerBase
 	{
-		private readonly ServerDBContext _context;
+		private readonly AzureDBContext _context;
 
-		public RentalPropertyController(ServerDBContext context)
+		public RentalPropertyController(AzureDBContext context)
 		{
 			_context = context;
 		}
@@ -20,7 +20,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 		[HttpGet("GetRentalProperties")]
 		public IActionResult GetRentalProperties()
 		{
-			var rentalProperties = _context.RentalProperties
+			var rentalProperties = _context.RentalProperty
 				.Select(rp => new
 				{
 					rp.RentalPropertyId,
@@ -34,9 +34,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 					rp.Aconto,
 					rp.PetsAllowed,
 					rp.PropertyRoomSize,
-					rp.DateAvailable,
-					rp.TenantId,
-					Tenant = rp.TenantId.HasValue ? _context.Tenants.FirstOrDefault(t => t.TenantId == rp.TenantId) : null
+					rp.DateAvailable
 				})
 				.ToList();
 
@@ -46,7 +44,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 		[HttpGet("GetRentalPropertyById/{id}")]
 		public IActionResult GetRentalPropertyById(int id)
 		{
-			var rentalProperty = _context.RentalProperties
+			var rentalProperty = _context.RentalProperty
 				.Where(rp => rp.RentalPropertyId == id)
 				.Select(rp => new
 				{
@@ -61,9 +59,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 					rp.Aconto,
 					rp.PetsAllowed,
 					rp.PropertyRoomSize,
-					rp.DateAvailable,
-					rp.TenantId,
-					Tenant = rp.TenantId.HasValue ? _context.Tenants.FirstOrDefault(t => t.TenantId == rp.TenantId) : null
+					rp.DateAvailable
 				})
 				.FirstOrDefault();
 
@@ -83,7 +79,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 				return BadRequest("Rental property details are missing.");
 			}
 
-			_context.RentalProperties.Add(rentalProperty);
+			_context.RentalProperty.Add(rentalProperty);
 			_context.SaveChanges();
 
 			return Ok(new { Message = "Rental property added successfully!" });
@@ -97,7 +93,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 				return BadRequest("Rental property details are missing.");
 			}
 
-			var existingRentalProperty = _context.RentalProperties.FirstOrDefault(rp => rp.RentalPropertyId == rentalProperty.RentalPropertyId);
+			var existingRentalProperty = _context.RentalProperty.FirstOrDefault(rp => rp.RentalPropertyId == rentalProperty.RentalPropertyId);
 
 			if (existingRentalProperty == null)
 			{
@@ -115,7 +111,6 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			existingRentalProperty.PetsAllowed = rentalProperty.PetsAllowed;
 			existingRentalProperty.PropertyRoomSize = rentalProperty.PropertyRoomSize;
 			existingRentalProperty.DateAvailable = rentalProperty.DateAvailable;
-			existingRentalProperty.TenantId = rentalProperty.TenantId;
 
 			_context.SaveChanges();
 
@@ -130,14 +125,14 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 				return BadRequest("Rental property ID is missing.");
 			}
 
-			var rentalProperty = _context.RentalProperties.FirstOrDefault(rp => rp.RentalPropertyId == id);
+			var rentalProperty = _context.RentalProperty.FirstOrDefault(rp => rp.RentalPropertyId == id);
 
 			if (rentalProperty == null)
 			{
 				return NotFound("Rental property not found.");
 			}
 
-			_context.RentalProperties.Remove(rentalProperty);
+			_context.RentalProperty.Remove(rentalProperty);
 			_context.SaveChanges();
 
 			return Ok(new { Message = "Rental property deleted successfully!" });

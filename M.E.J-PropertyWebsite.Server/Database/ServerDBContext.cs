@@ -20,7 +20,6 @@ namespace M.E.J_PropertyWebsite.Server.Database
 			modelBuilder.Entity<RentalProperty>()
 				.HasOne<Tenant>()
 				.WithMany()
-				.HasForeignKey(rp => rp.TenantId)
 				.OnDelete(DeleteBehavior.SetNull);
 		}
 	}

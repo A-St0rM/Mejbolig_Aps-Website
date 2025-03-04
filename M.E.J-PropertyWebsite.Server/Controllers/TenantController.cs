@@ -9,9 +9,9 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 	[Route("api/[controller]")]
 	public class TenantController : ControllerBase
 	{
-		private readonly ServerDBContext _context;
+		private readonly AzureDBContext _context;
 
-		public TenantController(ServerDBContext context)
+		public TenantController(AzureDBContext context)
 		{
 			_context = context;
 		}
@@ -19,7 +19,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 		[HttpGet("GetTenants")]
 		public IActionResult GetTenants()
 		{
-			var tenants = _context.Tenants.ToList();
+			var tenants = _context.Tenant.ToList();
 			return Ok(tenants);
 		}
 
@@ -31,7 +31,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 				return BadRequest("Tenant details are missing.");
 			}
 
-			_context.Tenants.Add(tenant);
+			_context.Tenant.Add(tenant);
 			_context.SaveChanges();
 
 			return Ok(new { Message = "Tenant added successfully!" });
@@ -45,7 +45,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 				return BadRequest("Tenant details are missing.");
 			}
 
-			var existingTenant = _context.Tenants.FirstOrDefault(t => t.TenantId == tenant.TenantId);
+			var existingTenant = _context.Tenant.FirstOrDefault(t => t.TenantId == tenant.TenantId);
 
 			if (existingTenant == null)
 			{
@@ -70,14 +70,14 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 				return BadRequest("Tenant ID is missing.");
 			}
 
-			var tenant = _context.Tenants.FirstOrDefault(t => t.TenantId == tenantId);
+			var tenant = _context.Tenant.FirstOrDefault(t => t.TenantId == tenantId);
 
 			if (tenant == null)
 			{
 				return NotFound("Tenant not found.");
 			}
 
-			_context.Tenants.Remove(tenant);
+			_context.Tenant.Remove(tenant);
 			_context.SaveChanges();
 
 			return Ok(new { Message = "Tenant deleted successfully!" });
