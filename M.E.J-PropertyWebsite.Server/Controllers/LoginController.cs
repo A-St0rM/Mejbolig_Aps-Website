@@ -43,5 +43,23 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			return Ok(adminDTO);
 		}
 
+		[HttpPost("logout")]
+		public IActionResult Logout() {
+			HttpContext.Session.Remove("isAuthenticated");
+            return Ok(new { Message = "Logout successful." });
+        }
+
+		[HttpGet("isAuthenticated")]
+		public IActionResult IsAuthenticated() {
+            var isAuthenticated = HttpContext.Session.GetString("isAuthenticated");
+
+            if (isAuthenticated == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(new { Message = "User is authenticated." });
+        }
+
 	}
 }
