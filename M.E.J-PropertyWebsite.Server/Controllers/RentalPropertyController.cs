@@ -1,4 +1,5 @@
 ﻿using M.E.J_PropertyWebsite.Server.Database;
+using M.E.J_PropertyWebsite.Server.DTO;
 using M.E.J_PropertyWebsite.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,50 +18,52 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			_context = context;
 		}
 
-		[HttpGet("GetRentalProperties")]
+		[HttpGet]
+		[Route("GetRentalProperties")]
 		public IActionResult GetRentalProperties()
 		{
 			var rentalProperties = _context.RentalProperty
-				.Select(rp => new
+				.Select(rp => new RentalPropertyDTO
 				{
-					rp.RentalPropertyId,
-					rp.PropertyName,
-					rp.PropertyAddress,
-					rp.Description,
-					rp.PropertySquareFootage,
-					rp.IsAvailable,
-					rp.RentalPrice,
-					rp.Deposit,
-					rp.Aconto,
-					rp.PetsAllowed,
-					rp.PropertyRoomSize,
-					rp.DateAvailable
-				})
+                    RentalPropertyId = rp.RentalPropertyId,
+                    PropertyName = rp.PropertyName,
+                    PropertyAddress = rp.PropertyAddress,
+                    Description = rp.Description,
+                    PropertySquareFootage = rp.PropertySquareFootage,
+                    IsAvailable = rp.IsAvailable,
+                    RentalPrice = rp.RentalPrice,
+                    Deposit = rp.Deposit,
+                    Aconto = rp.Aconto,
+                    PetsAllowed = rp.PetsAllowed,
+                    PropertyRoomSize = rp.PropertyRoomSize,
+                    DateAvailable = rp.DateAvailable
+                })
 				.ToList();
 
 			return Ok(rentalProperties);
 		}
 
-		[HttpGet("GetRentalPropertyById/{id}")]
+		[HttpGet]
+		[Route("GetRentalPropertyById/{id}")]
 		public IActionResult GetRentalPropertyById(int id)
 		{
 			var rentalProperty = _context.RentalProperty
 				.Where(rp => rp.RentalPropertyId == id)
-				.Select(rp => new
+				.Select(rp => new RentalPropertyDTO
 				{
-					rp.RentalPropertyId,
-					rp.PropertyName,
-					rp.PropertyAddress,
-					rp.Description,
-					rp.PropertySquareFootage,
-					rp.IsAvailable,
-					rp.RentalPrice,
-					rp.Deposit,
-					rp.Aconto,
-					rp.PetsAllowed,
-					rp.PropertyRoomSize,
-					rp.DateAvailable
-				})
+                    RentalPropertyId = rp.RentalPropertyId,
+                    PropertyName = rp.PropertyName,
+                    PropertyAddress = rp.PropertyAddress,
+                    Description = rp.Description,
+                    PropertySquareFootage = rp.PropertySquareFootage,
+                    IsAvailable = rp.IsAvailable,
+                    RentalPrice = rp.RentalPrice,
+                    Deposit = rp.Deposit,
+                    Aconto = rp.Aconto,
+                    PetsAllowed = rp.PetsAllowed,
+                    PropertyRoomSize = rp.PropertyRoomSize,
+                    DateAvailable = rp.DateAvailable
+                })
 				.FirstOrDefault();
 
 			if (rentalProperty == null)
@@ -71,7 +74,8 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			return Ok(rentalProperty);
 		}
 
-		[HttpPost("AddRentalProperty")]
+		[HttpPost]
+		[Route("AddRentalProperty")]
 		public IActionResult AddRentalProperty([FromBody] RentalProperty rentalProperty)
 		{
 			if (rentalProperty == null || string.IsNullOrEmpty(rentalProperty.PropertyName) || string.IsNullOrEmpty(rentalProperty.PropertyAddress) || rentalProperty.RentalPrice == 0)
@@ -85,7 +89,8 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			return Ok(new { Message = "Rental property added successfully!" });
 		}
 
-		[HttpPut("UpdateRentalProperty")]
+		[HttpPut]
+		[Route("UpdateRentalProperty")]
 		public IActionResult UpdateRentalProperty([FromBody] RentalProperty rentalProperty)
 		{
 			if (rentalProperty == null || rentalProperty.RentalPropertyId == 0 || string.IsNullOrEmpty(rentalProperty.PropertyName) || string.IsNullOrEmpty(rentalProperty.PropertyAddress) || rentalProperty.RentalPrice == 0)
@@ -117,7 +122,8 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			return Ok(new { Message = "Rental property updated successfully!" });
 		}
 
-		[HttpDelete("DeleteRentalProperty/{id}")]
+		[HttpDelete]
+		[Route("DeleteRentalProperty/{id}")]
 		public IActionResult DeleteRentalProperty(int id)
 		{
 			if (id == 0)
