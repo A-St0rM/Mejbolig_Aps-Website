@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using M.E.J_PropertyWebsite.Server.Models;
+using M.E.J_PropertyWebsite.Server.DTO;
 
 namespace M.E.J_PropertyWebsite.Server.Controllers
 {
@@ -16,14 +17,26 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			_context = context;
 		}
 
-		[HttpGet("GetTenants")]
+		[HttpGet]
+		[Route("GetTenants")]
 		public IActionResult GetTenants()
 		{
-			var tenants = _context.Tenant.ToList();
-			return Ok(tenants);
-		}
+            var tenants = _context.Tenant
+                .Select(t => new TenantDTO
+                {
+                    TenantId = t.TenantId,
+                    FirstName = t.FirstName,
+                    LastName = t.LastName,
+                    Email = t.Email,
+                    PhoneNumber = t.PhoneNumber
+                })
+                .ToList();
 
-		[HttpPost("AddTenant")]
+            return Ok(tenants);
+        }
+
+		[HttpPost]
+		[Route("AddTenant")]
 		public IActionResult AddTenant([FromBody] Tenant tenant)
 		{
 			if (tenant == null || string.IsNullOrEmpty(tenant.FirstName) || string.IsNullOrEmpty(tenant.LastName) || string.IsNullOrEmpty(tenant.Email) || string.IsNullOrEmpty(tenant.PhoneNumber))
@@ -37,7 +50,8 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			return Ok(new { Message = "Tenant added successfully!" });
 		}
 
-		[HttpPut("UpdateTenant")]
+		[HttpPut]
+		[Route("UpdateTenant")]
 		public IActionResult UpdateTenant([FromBody] Tenant tenant)
 		{
 			if (tenant == null || tenant.TenantId == 0 || string.IsNullOrEmpty(tenant.FirstName) || string.IsNullOrEmpty(tenant.LastName) || string.IsNullOrEmpty(tenant.Email) || string.IsNullOrEmpty(tenant.PhoneNumber))
@@ -62,7 +76,8 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			return Ok(new { Message = "Tenant updated successfully!" });
 		}
 
-		[HttpDelete("DeleteTenant/{tenantId}")]
+		[HttpDelete]
+		[Route("DeleteTenant/{tenantId}")]
 		public IActionResult DeleteTenant(int tenantId)
 		{
 			if (tenantId == 0)
