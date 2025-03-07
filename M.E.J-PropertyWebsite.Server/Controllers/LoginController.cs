@@ -20,20 +20,19 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
             _jwtService = jwtService;
         }
 
-		[HttpPost("login")]
-		public IActionResult Login([FromBody] LogingRequestDTO loginRequest)
-		{
-			if (loginRequest == null || string.IsNullOrEmpty(loginRequest.UserName) || string.IsNullOrEmpty(loginRequest.Password))
-			{
-				return BadRequest("Username or password is missing.");
-			}
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LogingRequestDTO loginRequest)
+        {
+            if (loginRequest == null || string.IsNullOrEmpty(loginRequest.UserName) || string.IsNullOrEmpty(loginRequest.Password))
+            {
+                return BadRequest("Username or password is missing.");
+            }
 
-			var admin = _context.Admin.FirstOrDefault(a => a.UserName == loginRequest.UserName && a.Password == loginRequest.Password);
-
-			if (admin == null || !VerifyPassword(loginRequest.Password, admin.Password))
-			{
-				return Unauthorized("Invalid username or password.");
-			}
+            var admin = _context.Admin.FirstOrDefault(a => a.UserName == loginRequest.UserName);
+            if (admin == null || !VerifyPassword(loginRequest.Password, admin.Password))
+            {
+                return Unauthorized("Invalid username or password.");
+            }
 
             var token = _jwtService.GenerateToken(admin.UserName);
 
@@ -45,10 +44,11 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
                 Token = token
             };
 
-			return Ok(adminDTO);
-		}
+            return Ok(adminDTO);
+        }
 
-		[HttpPost("logout")]
+
+        [HttpPost("logout")]
 		public IActionResult Logout() {
 			HttpContext.Session.Remove("isAuthenticated");
             return Ok(new { Message = "Logout successful." });
@@ -66,11 +66,11 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
             return Ok(new { Message = "User is authenticated." });
         }
 
-        private bool VerifyPassword(string enteredPassword, string storedPassword)
+        private bool VerifyPassword(string enteredPassword, string storedHashedPassword)
         {
-            //TODO: Implement password hashing
-            return enteredPassword == storedPassword;
+            return BCrypt.Net.BCrypt.Verify(enteredPassword, storedHashedPassword);
         }
 
-	}
+
+    }
 }

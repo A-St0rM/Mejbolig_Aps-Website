@@ -84,6 +84,13 @@ namespace M.E.J_PropertyWebsite.Server
                 app.UseSwaggerUI();
             }
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<AzureDBContext>();
+                DataSeeder.SeedData(context);
+            }
+
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
