@@ -17,7 +17,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
         }
 
 		[HttpPost("login")]
-		public IActionResult Login([FromBody] Admin loginRequest)
+		public IActionResult Login([FromBody] LogingRequestDTO loginRequest)
 		{
 			if (loginRequest == null || string.IsNullOrEmpty(loginRequest.UserName) || string.IsNullOrEmpty(loginRequest.Password))
 			{
@@ -26,7 +26,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 
 			var admin = _context.Admin.FirstOrDefault(a => a.UserName == loginRequest.UserName && a.Password == loginRequest.Password);
 
-			if (admin == null)
+			if (admin == null || !VerifyPassword(loginRequest.Password, admin.Password))
 			{
 				return Unauthorized("Invalid username or password.");
 			}
@@ -59,6 +59,12 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
             }
 
             return Ok(new { Message = "User is authenticated." });
+        }
+
+        private bool VerifyPassword(string enteredPassword, string storedPassword)
+        {
+            //TODO: Implement password hashing
+            return enteredPassword == storedPassword;
         }
 
 	}
