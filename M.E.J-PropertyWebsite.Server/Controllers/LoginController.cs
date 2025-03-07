@@ -1,6 +1,7 @@
 ﻿using M.E.J_PropertyWebsite.Server.Database;
 using M.E.J_PropertyWebsite.Server.DTO;
 using M.E.J_PropertyWebsite.Server.Models;
+using M.E.J_PropertyWebsite.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace M.E.J_PropertyWebsite.Server.Controllers
@@ -10,10 +11,13 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
     public class LoginController : ControllerBase
     {
         private readonly AzureDBContext _context;
+        private readonly JwtService _jwtService;
 
-        public LoginController(AzureDBContext context)
+
+        public LoginController(AzureDBContext context, JwtService jwtService)
         {
             _context = context;
+            _jwtService = jwtService;
         }
 
 		[HttpPost("login")]
@@ -31,13 +35,14 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 				return Unauthorized("Invalid username or password.");
 			}
 
-			HttpContext.Session.SetString("isAuthenticated", "true");
+            var token = _jwtService.GenerateToken(admin.UserName);
 
-			var adminDTO = new AdminDTO
+            var adminDTO = new AdminDTO
             {
                 Id = admin.Id,
                 UserName = admin.UserName,
-                LoginMessage = "Login successful."
+                LoginMessage = "Login successful.",
+                Token = token
             };
 
 			return Ok(adminDTO);
