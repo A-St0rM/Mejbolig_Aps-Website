@@ -1,6 +1,7 @@
 ﻿using M.E.J_PropertyWebsite.Server.Database;
 using M.E.J_PropertyWebsite.Server.DTO;
 using M.E.J_PropertyWebsite.Server.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -74,6 +75,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			return Ok(rentalProperty);
 		}
 
+		[Authorize]
 		[HttpPost]
 		[Route("AddRentalProperty")]
 		public IActionResult AddRentalProperty([FromBody] RentalProperty rentalProperty)
@@ -89,6 +91,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			return Ok(new { Message = "Rental property added successfully!" });
 		}
 
+		[Authorize]
 		[HttpPut]
 		[Route("UpdateRentalProperty")]
 		public IActionResult UpdateRentalProperty([FromBody] RentalProperty rentalProperty)
@@ -122,6 +125,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			return Ok(new { Message = "Rental property updated successfully!" });
 		}
 
+		[Authorize]
 		[HttpDelete]
 		[Route("DeleteRentalProperty/{id}")]
 		public IActionResult DeleteRentalProperty(int id)

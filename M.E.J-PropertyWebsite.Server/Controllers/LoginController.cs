@@ -1,6 +1,7 @@
 ﻿using M.E.J_PropertyWebsite.Server.Database;
 using M.E.J_PropertyWebsite.Server.DTO;
 using M.E.J_PropertyWebsite.Server.Models;
+using M.E.J_PropertyWebsite.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace M.E.J_PropertyWebsite.Server.Controllers
@@ -10,40 +11,44 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
     public class LoginController : ControllerBase
     {
         private readonly AzureDBContext _context;
+        private readonly JwtService _jwtService;
 
-        public LoginController(AzureDBContext context)
+
+        public LoginController(AzureDBContext context, JwtService jwtService)
         {
             _context = context;
+            _jwtService = jwtService;
         }
 
-		[HttpPost("login")]
-		public IActionResult Login([FromBody] LogingRequestDTO loginRequest)
-		{
-			if (loginRequest == null || string.IsNullOrEmpty(loginRequest.UserName) || string.IsNullOrEmpty(loginRequest.Password))
-			{
-				return BadRequest("Username or password is missing.");
-			}
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LogingRequestDTO loginRequest)
+        {
+            if (loginRequest == null || string.IsNullOrEmpty(loginRequest.UserName) || string.IsNullOrEmpty(loginRequest.Password))
+            {
+                return BadRequest("Username or password is missing.");
+            }
 
-			var admin = _context.Admin.FirstOrDefault(a => a.UserName == loginRequest.UserName && a.Password == loginRequest.Password);
+            var admin = _context.Admin.FirstOrDefault(a => a.UserName == loginRequest.UserName);
+            if (admin == null || !VerifyPassword(loginRequest.Password, admin.Password))
+            {
+                return Unauthorized("Invalid username or password.");
+            }
 
-			if (admin == null || !VerifyPassword(loginRequest.Password, admin.Password))
-			{
-				return Unauthorized("Invalid username or password.");
-			}
+            var token = _jwtService.GenerateToken(admin.UserName);
 
-			HttpContext.Session.SetString("isAuthenticated", "true");
-
-			var adminDTO = new AdminDTO
+            var adminDTO = new AdminDTO
             {
                 Id = admin.Id,
                 UserName = admin.UserName,
-                LoginMessage = "Login successful."
+                LoginMessage = "Login successful.",
+                Token = token
             };
 
-			return Ok(adminDTO);
-		}
+            return Ok(adminDTO);
+        }
 
-		[HttpPost("logout")]
+
+        [HttpPost("logout")]
 		public IActionResult Logout() {
 			HttpContext.Session.Remove("isAuthenticated");
             return Ok(new { Message = "Logout successful." });
@@ -61,11 +66,11 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
             return Ok(new { Message = "User is authenticated." });
         }
 
-        private bool VerifyPassword(string enteredPassword, string storedPassword)
+        private bool VerifyPassword(string enteredPassword, string storedHashedPassword)
         {
-            //TODO: Implement password hashing
-            return enteredPassword == storedPassword;
+            return BCrypt.Net.BCrypt.Verify(enteredPassword, storedHashedPassword);
         }
 
-	}
+
+    }
 }
