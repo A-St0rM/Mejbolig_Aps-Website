@@ -14,5 +14,6 @@
         public bool PetsAllowed { get; set; }
         public int PropertyRoomSize { get; set; }
         public DateTime DateAvailable { get; set; }
+        public PropertyTypeDTO PropertyType { get; set; }
     }
 }
