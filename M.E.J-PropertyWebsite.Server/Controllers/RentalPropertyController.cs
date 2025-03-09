@@ -37,7 +37,8 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
                     Aconto = rp.Aconto,
                     PetsAllowed = rp.PetsAllowed,
                     PropertyRoomSize = rp.PropertyRoomSize,
-                    DateAvailable = rp.DateAvailable
+                    DateAvailable = rp.DateAvailable,
+					PropertyType = new PropertyTypeDTO()
                 })
 				.ToList();
 
@@ -63,7 +64,8 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
                     Aconto = rp.Aconto,
                     PetsAllowed = rp.PetsAllowed,
                     PropertyRoomSize = rp.PropertyRoomSize,
-                    DateAvailable = rp.DateAvailable
+                    DateAvailable = rp.DateAvailable,
+                    PropertyType = new PropertyTypeDTO()
                 })
 				.FirstOrDefault();
 
