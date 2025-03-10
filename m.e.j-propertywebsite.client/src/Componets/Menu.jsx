@@ -12,7 +12,7 @@ function Menu() {
             </div>
             <ul className="unique-menu-list">
                 <li className={`unique-menu-item ${location.pathname === '/availableRentals' ? 'active' : ''}`}>
-                    <Link to="/availableRentals">Find lejemål</Link>
+                    <Link to="/availableRentals">Find lejemÃ¥l</Link>
                 </li>
                 <li className={`unique-menu-item ${location.pathname === '/InformationForTenants' ? 'active' : ''}`}>
                     <Link to="/InformationForTenants">information til lejere</Link>

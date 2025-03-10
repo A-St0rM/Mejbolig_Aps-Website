@@ -15,7 +15,20 @@
     position: relative; /* Ensures text is positioned relative to the image */
     display: flex;
     align-items: center;
-    justify-content: flex-start; 
+   
+}
+
+.titel-text, .sub-button{
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    padding: 60px;
+    margin-left: 4rem;
+    animation: fade-in 3s ease-in-out forwards;
+}
+
+.sub-button {
+    top: 330px;
 }
 
 .main-background {
@@ -24,19 +37,23 @@
     height: 100%;
     object-fit: cover;
     animation: slide-in 1.3s ease-out;
+    z-index: -1; /* Ensures the image is behind the text */
 }
 
 .titel-text {
-    position: absolute; /* Places the text over the image */
     top: 150px;
     color: white;
     font-size: 2.5rem; 
     font-weight: bold;
     text-align: center;
-    padding: 60px;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
     opacity: 0; /* Start hidden */
-    animation: fade-in 3s ease-in-out forwards; /* Smooth fade-in */
+}
+
+.card{
+    position:absolute;
+    top: 600px;
+    right: 40px;
 }
 
 @keyframes fade-in {
