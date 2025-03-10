@@ -28,6 +28,7 @@
 
 .titel-text {
     position: absolute; /* Places the text over the image */
+    top: 150px;
     color: white;
     font-size: 2.5rem; 
     font-weight: bold;
