@@ -11,6 +11,8 @@
         public bool PetsAllowed { get; set; }
         public int PropertyRoomSize { get; set; }
         public DateTime DateAvailable { get; set; }
+      
         public PropertyPriceDTO PropertyPrice { get; set; }
+
     }
 }

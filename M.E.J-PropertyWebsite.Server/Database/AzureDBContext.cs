@@ -15,5 +15,8 @@ namespace M.E.J_PropertyWebsite.Server.Database
         public DbSet<RentalHistory> rentalHistories { get; set; }
         public DbSet<PropertyPrice> PropertyPrice { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<PropertyType> PropertyType { get; set; }
+        public DbSet<WaitingList> WaitlingList { get; set; }
+
     }
 }

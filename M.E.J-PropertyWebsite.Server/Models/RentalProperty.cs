@@ -15,6 +15,7 @@ namespace M.E.J_PropertyWebsite.Server.Models
 		public bool PetsAllowed { get; set; }
 		public int PropertyRoomSize { get; set; }
 		public DateTime DateAvailable { get; set; }
+		public PropertyType PropertyType { get; set; }
 
 		public PropertyPrice PropertyPrice { get; set; }
 
@@ -29,6 +30,7 @@ namespace M.E.J_PropertyWebsite.Server.Models
 			this.PetsAllowed = petsAllowed;
 			this.PropertyRoomSize = propertyRoomSize;
 			this.DateAvailable = dateAvailable;
+			this.PropertyType = propertyType;
 		}
 
 		public RentalProperty()
