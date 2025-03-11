@@ -1,17 +1,24 @@
-﻿namespace M.E.J_PropertyWebsite.Server.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace M.E.J_PropertyWebsite.Server.Models
 {
     public class PropertyPrice
     {
-
-        public int Deposit { get; set; }
-        public int RentalPrice { get; set; }
+        [Key]
+        public int Price_Id { get; set; }
+        public double Deposit { get; set; }
+        public double RentalPrice { get; set; }
         public double Aconto { get; set; }
-        public int RentalPropertyId { get; set; }
-        public int PropertyPriceId { get; set; }
 
-        public PropertyPrice(int RentalPropertyId, int deposit, int rentalPrice, double aconto)
+        [ForeignKey("RentalProperty")]
+        public int RentalProperty_id { get; set; }
+
+        public RentalProperty RentalProperty { get; set; }
+
+        public PropertyPrice(int RentalProperty_id, int deposit, int rentalPrice, double aconto)
         {
-            this.RentalPropertyId = RentalPropertyId;
+            this.RentalProperty_id = RentalProperty_id;
             this.Deposit = deposit;
             this.RentalPrice = rentalPrice;
             this.Aconto = aconto;

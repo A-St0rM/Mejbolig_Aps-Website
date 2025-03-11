@@ -1,8 +1,12 @@
-﻿namespace M.E.J_PropertyWebsite.Server.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace M.E.J_PropertyWebsite.Server.Models
 {
 	public class RentalProperty
 	{
-		public int RentalPropertyId { get; set; }
+		[Key]
+		public int RentalProperty_id { get; set; }
 		public string PropertyName { get; set; }
 		public string PropertyAddress { get; set; }
 		public string Description { get; set; }
@@ -12,9 +16,11 @@
 		public int PropertyRoomSize { get; set; }
 		public DateTime DateAvailable { get; set; }
 
-		public RentalProperty(int rentalPropertyId, string propertyName, string propertyAddress, string description, double propertySquareFootage, bool isAvailable, bool petsAllowed, int propertyRoomSize, DateTime dateAvailable)
+		public PropertyPrice PropertyPrice { get; set; }
+
+		public RentalProperty(int RentalProperty_id, string propertyName, string propertyAddress, string description, double propertySquareFootage, bool isAvailable, bool petsAllowed, int propertyRoomSize, DateTime dateAvailable)
 		{
-			this.RentalPropertyId = rentalPropertyId;
+			this.RentalProperty_id = RentalProperty_id;
 			this.PropertyName = propertyName;
 			this.PropertyAddress = propertyAddress;
 			this.Description = description;
@@ -24,5 +30,9 @@
 			this.PropertyRoomSize = propertyRoomSize;
 			this.DateAvailable = dateAvailable;
 		}
+
+		public RentalProperty()
+        {
+        }
 	}
 }
