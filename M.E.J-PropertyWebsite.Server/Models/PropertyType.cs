@@ -4,5 +4,15 @@
     {
         public int PropertyTypeId { get; set; }
         public string PropertyTypeName { get; set; }
+
+        public PropertyType(int propertyTypeId, string propertyTypeName)
+        {
+            this.PropertyTypeId = propertyTypeId;
+            this.PropertyTypeName = propertyTypeName;
+        }
+
+        public PropertyType()
+        {
+        }
     }
 }
