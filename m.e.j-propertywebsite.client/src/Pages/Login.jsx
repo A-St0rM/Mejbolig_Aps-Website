@@ -6,23 +6,32 @@ import Menu from '../Componets/Menu';
 function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setError('');
 
-		const response = await fetch('https://localhost:7230//api/login/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ UserName: username, Password: password }),
-		});
+		try {
+			const response = await fetch('https://localhost:7230/api/login/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ UserName: username, Password: password }),
+			});
 
-		if (response.ok) {
+			if (!response.ok) {
+				throw new Error('Forkert brugernavn eller adgangskode');
+			}
+
+			const data = await response.json();
+			localStorage.setItem('token', data.token);
+			localStorage.setItem('isAuthenticated', 'true');
 			navigate('/admin');
-		} else {
-			alert('Invalid username or password');
+		} catch (err) {
+			setError(err.message);
 		}
 	};
 
@@ -31,6 +40,7 @@ function Login() {
 			<Menu />
 			<div className="login-container">
 				<h1>Login</h1>
+				{error && <p className="error">{error}</p>}
 				<form onSubmit={handleSubmit}>
 					<label>
 						Brugernavn:
