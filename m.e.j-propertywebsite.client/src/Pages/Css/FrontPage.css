@@ -67,3 +67,62 @@
         transform: translateY(0);
     }
 }
+
+.second-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.title{
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Rockwell Nova';
+    margin-top: -250px;
+}
+
+.text{
+    font-size: 1rem;
+    font-family: 'Rockwell Nova';
+    margin-top: 80px;
+}
+
+@keyframes fade-in-slide {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.second-content-image {
+    width: 50%;
+    opacity: 0; /* Start hidden */
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+    .second-content-image.show {
+        opacity: 1;
+        animation: fade-in-slide 1s ease-out forwards;
+    }
+
+
+.third-content {
+    width: 100%;
+    height: 500px;
+    background-color: #39404A;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.third-title{
+   display:flex;
+   margin-bottom: 300px;
+}
+

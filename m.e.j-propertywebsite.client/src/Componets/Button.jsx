@@ -1,11 +1,11 @@
 import "./Button.css";
 import { Link } from "react-router-dom";
 
-function Button() {
-  return (
-      <Link to="/availableRentals" className="orange-button">
-          Find din bolig!
-      </Link>
+function Button({ text = "Find din bolig!", to = "/availableRentals" }) {
+    return (
+        <Link to={to} className="orange-button">
+            {text}
+        </Link>
     );
 }
 

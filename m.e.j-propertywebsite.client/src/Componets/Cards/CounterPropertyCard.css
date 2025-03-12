@@ -3,7 +3,31 @@
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100px; /* Adjust width as needed */
+    width: 150px;
+    height: 200px;
     text-align: center;
     transition: transform 0.3s ease-in-out;
+    box-shadow: 10px 10px #D16C1C;
+    animation: sway 3s infinite ease-in-out;
+}
+@keyframes sway {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(5px);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
