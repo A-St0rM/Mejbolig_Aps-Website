@@ -36,21 +36,20 @@ function Login() {
 	};
 
 	return (
-		<div>
-			<Menu />
+		<div className="login-page">
 			<div className="login-container">
 				<h1>Login</h1>
 				{error && <p className="error">{error}</p>}
 				<form onSubmit={handleSubmit}>
-					<label>
-						Brugernavn:
-						<input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-					</label>
-					<label>
-						Adgangskode:
-						<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-					</label>
-					<button type="submit">Login</button>
+					<div className="input-group">
+						<label>Brugernavn</label>
+						<input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+					</div>
+					<div className="input-group">
+						<label>Adgangskode</label>
+						<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+					</div>
+					<button type="submit" className="login-btn">Login</button>
 				</form>
 			</div>
 		</div>
