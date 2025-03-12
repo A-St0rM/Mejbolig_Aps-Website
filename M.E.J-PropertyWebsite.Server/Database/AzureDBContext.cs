@@ -13,7 +13,10 @@ namespace M.E.J_PropertyWebsite.Server.Database
         public DbSet<RentalProperty> RentalProperty { get; set; }
         public DbSet<Tenant> Tenant { get; set; }
         public DbSet<RentalHistory> rentalHistories { get; set; }
+        public DbSet<PropertyPrice> PropertyPrice { get; set; }
+        public DbSet<Image> Images { get; set; }
         public DbSet<PropertyType> PropertyType { get; set; }
         public DbSet<WaitingList> WaitlingList { get; set; }
+
     }
 }

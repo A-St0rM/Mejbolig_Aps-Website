@@ -2,12 +2,13 @@
 {
     public class PropertyType
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int PropertyTypeId { get; set; }
+        public string PropertyTypeName { get; set; }
 
-        public PropertyType(string Name)
+        public PropertyType(int propertyTypeId, string propertyTypeName)
         {
-            this.Name = Name;
+            this.PropertyTypeId = propertyTypeId;
+            this.PropertyTypeName = propertyTypeName;
         }
 
         public PropertyType()

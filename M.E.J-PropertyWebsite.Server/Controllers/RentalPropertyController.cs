@@ -19,53 +19,60 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			_context = context;
 		}
 
-		[HttpGet]
-		[Route("GetRentalProperties")]
-		public IActionResult GetRentalProperties()
-		{
-			var rentalProperties = _context.RentalProperty
-				.Select(rp => new RentalPropertyDTO
-				{
-                    RentalPropertyId = rp.RentalPropertyId,
+        [HttpGet]
+        [Route("GetRentalProperties")]
+        public IActionResult GetRentalProperties()
+        {
+            var rentalProperties = _context.RentalProperty
+                .Include(rp => rp.PropertyPrice)
+                .Select(rp => new RentalPropertyDTO
+                {
+                    RentalProperty_id = rp.RentalProperty_id,
                     PropertyName = rp.PropertyName,
                     PropertyAddress = rp.PropertyAddress,
                     Description = rp.Description,
                     PropertySquareFootage = rp.PropertySquareFootage,
                     IsAvailable = rp.IsAvailable,
-                    RentalPrice = rp.RentalPrice,
-                    Deposit = rp.Deposit,
-                    Aconto = rp.Aconto,
                     PetsAllowed = rp.PetsAllowed,
                     PropertyRoomSize = rp.PropertyRoomSize,
                     DateAvailable = rp.DateAvailable,
-					PropertyType = new PropertyTypeDTO()
+                    PropertyPrice = rp.PropertyPrice != null ? new PropertyPriceDTO
+                    {
+                        Deposit = rp.PropertyPrice.Deposit,
+                        RentalPrice = rp.PropertyPrice.RentalPrice,
+                        Aconto = rp.PropertyPrice.Aconto,
+                        PropertyPriceId = rp.PropertyPrice.RentalProperty_id
+                    } : null
                 })
-				.ToList();
+                .ToList();
 
-			return Ok(rentalProperties);
-		}
+            return Ok(rentalProperties);
+        }
 
-		[HttpGet]
+        [HttpGet]
 		[Route("GetRentalPropertyById/{id}")]
 		public IActionResult GetRentalPropertyById(int id)
 		{
 			var rentalProperty = _context.RentalProperty
-				.Where(rp => rp.RentalPropertyId == id)
+				.Where(rp => rp.RentalProperty_id == id)
 				.Select(rp => new RentalPropertyDTO
 				{
-                    RentalPropertyId = rp.RentalPropertyId,
+                    RentalProperty_id = rp.RentalProperty_id,
                     PropertyName = rp.PropertyName,
                     PropertyAddress = rp.PropertyAddress,
                     Description = rp.Description,
                     PropertySquareFootage = rp.PropertySquareFootage,
                     IsAvailable = rp.IsAvailable,
-                    RentalPrice = rp.RentalPrice,
-                    Deposit = rp.Deposit,
-                    Aconto = rp.Aconto,
                     PetsAllowed = rp.PetsAllowed,
                     PropertyRoomSize = rp.PropertyRoomSize,
                     DateAvailable = rp.DateAvailable,
-                    PropertyType = new PropertyTypeDTO()
+                    PropertyPrice = new PropertyPriceDTO
+                    {
+                        Deposit = rp.PropertyPrice.Deposit,
+                        RentalPrice = rp.PropertyPrice.RentalPrice,
+                        Aconto = rp.PropertyPrice.Aconto,
+                        PropertyPriceId = rp.PropertyPrice.Price_Id
+                    }
                 })
 				.FirstOrDefault();
 
@@ -77,57 +84,86 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 			return Ok(rentalProperty);
 		}
 
-		[Authorize]
-		[HttpPost]
-		[Route("AddRentalProperty")]
-		public IActionResult AddRentalProperty([FromBody] RentalProperty rentalProperty)
-		{
-			if (rentalProperty == null || string.IsNullOrEmpty(rentalProperty.PropertyName) || string.IsNullOrEmpty(rentalProperty.PropertyAddress) || rentalProperty.RentalPrice == 0)
-			{
-				return BadRequest("Rental property details are missing.");
-			}
+        [Authorize]
+        [HttpPost]
+        [Route("AddRentalProperty")]
+        public IActionResult AddRentalProperty([FromBody] RentalPropertyDTO rentalPropertyDTO)
+        {
+            if (rentalPropertyDTO == null || string.IsNullOrEmpty(rentalPropertyDTO.PropertyName) || string.IsNullOrEmpty(rentalPropertyDTO.PropertyAddress))
+            {
+                return BadRequest("Rental property details are missing.");
+            }
 
-			_context.RentalProperty.Add(rentalProperty);
-			_context.SaveChanges();
+            var rentalProperty = new RentalProperty
+            {
+                RentalProperty_id = rentalPropertyDTO.RentalProperty_id,
+                PropertyName = rentalPropertyDTO.PropertyName,
+                PropertyAddress = rentalPropertyDTO.PropertyAddress,
+                Description = rentalPropertyDTO.Description,
+                PropertySquareFootage = rentalPropertyDTO.PropertySquareFootage,
+                IsAvailable = rentalPropertyDTO.IsAvailable,
+                PetsAllowed = rentalPropertyDTO.PetsAllowed,
+                PropertyRoomSize = rentalPropertyDTO.PropertyRoomSize,
+                DateAvailable = rentalPropertyDTO.DateAvailable,
+                PropertyPrice = new PropertyPrice
+                {
+                    Deposit = rentalPropertyDTO.PropertyPrice.Deposit,
+                    RentalPrice = rentalPropertyDTO.PropertyPrice.RentalPrice,
+                    Aconto = rentalPropertyDTO.PropertyPrice.Aconto,
+                    Price_Id = rentalPropertyDTO.PropertyPrice.PropertyPriceId
+                }
+            };
 
-			return Ok(new { Message = "Rental property added successfully!" });
-		}
+            _context.RentalProperty.Add(rentalProperty);
+            _context.SaveChanges();
 
-		[Authorize]
-		[HttpPut]
-		[Route("UpdateRentalProperty")]
-		public IActionResult UpdateRentalProperty([FromBody] RentalProperty rentalProperty)
-		{
-			if (rentalProperty == null || rentalProperty.RentalPropertyId == 0 || string.IsNullOrEmpty(rentalProperty.PropertyName) || string.IsNullOrEmpty(rentalProperty.PropertyAddress) || rentalProperty.RentalPrice == 0)
-			{
-				return BadRequest("Rental property details are missing.");
-			}
+            return Ok(new { Message = "Rental property added successfully!" });
+        }
 
-			var existingRentalProperty = _context.RentalProperty.FirstOrDefault(rp => rp.RentalPropertyId == rentalProperty.RentalPropertyId);
+        [Authorize]
+        [HttpPut]
+        [Route("UpdateRentalProperty")]
+        public IActionResult UpdateRentalProperty([FromBody] RentalPropertyDTO rentalPropertyDTO)
+        {
+            if (rentalPropertyDTO == null || rentalPropertyDTO.RentalProperty_id == 0 || string.IsNullOrEmpty(rentalPropertyDTO.PropertyName) || string.IsNullOrEmpty(rentalPropertyDTO.PropertyAddress))
+            {
+                return BadRequest("Rental property details are missing.");
+            }
 
-			if (existingRentalProperty == null)
-			{
-				return NotFound("Rental property not found.");
-			}
+            var existingRentalProperty = _context.RentalProperty
+                .Include(rp => rp.PropertyPrice)
+                .FirstOrDefault(rp => rp.RentalProperty_id == rentalPropertyDTO.RentalProperty_id);
 
-			existingRentalProperty.PropertyName = rentalProperty.PropertyName;
-			existingRentalProperty.PropertyAddress = rentalProperty.PropertyAddress;
-			existingRentalProperty.Description = rentalProperty.Description;
-			existingRentalProperty.PropertySquareFootage = rentalProperty.PropertySquareFootage;
-			existingRentalProperty.IsAvailable = rentalProperty.IsAvailable;
-			existingRentalProperty.RentalPrice = rentalProperty.RentalPrice;
-			existingRentalProperty.Deposit = rentalProperty.Deposit;
-			existingRentalProperty.Aconto = rentalProperty.Aconto;
-			existingRentalProperty.PetsAllowed = rentalProperty.PetsAllowed;
-			existingRentalProperty.PropertyRoomSize = rentalProperty.PropertyRoomSize;
-			existingRentalProperty.DateAvailable = rentalProperty.DateAvailable;
+            if (existingRentalProperty == null)
+            {
+                return NotFound("Rental property not found.");
+            }
 
-			_context.SaveChanges();
+            existingRentalProperty.PropertyName = rentalPropertyDTO.PropertyName;
+            existingRentalProperty.PropertyAddress = rentalPropertyDTO.PropertyAddress;
+            existingRentalProperty.Description = rentalPropertyDTO.Description;
+            existingRentalProperty.PropertySquareFootage = rentalPropertyDTO.PropertySquareFootage;
+            existingRentalProperty.IsAvailable = rentalPropertyDTO.IsAvailable;
+            existingRentalProperty.PetsAllowed = rentalPropertyDTO.PetsAllowed;
+            existingRentalProperty.PropertyRoomSize = rentalPropertyDTO.PropertyRoomSize;
+            existingRentalProperty.DateAvailable = rentalPropertyDTO.DateAvailable;
 
-			return Ok(new { Message = "Rental property updated successfully!" });
-		}
+            if (existingRentalProperty.PropertyPrice == null)
+            {
+                existingRentalProperty.PropertyPrice = new PropertyPrice();
+            }
 
-		[Authorize]
+            existingRentalProperty.PropertyPrice.Deposit = rentalPropertyDTO.PropertyPrice.Deposit;
+            existingRentalProperty.PropertyPrice.RentalPrice = rentalPropertyDTO.PropertyPrice.RentalPrice;
+            existingRentalProperty.PropertyPrice.Aconto = rentalPropertyDTO.PropertyPrice.Aconto;
+            existingRentalProperty.PropertyPrice.Price_Id = rentalPropertyDTO.PropertyPrice.PropertyPriceId;
+
+            _context.SaveChanges();
+
+            return Ok(new { Message = "Rental property updated successfully!" });
+        }
+
+        [Authorize]
 		[HttpDelete]
 		[Route("DeleteRentalProperty/{id}")]
 		public IActionResult DeleteRentalProperty(int id)
@@ -137,7 +173,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
 				return BadRequest("Rental property ID is missing.");
 			}
 
-			var rentalProperty = _context.RentalProperty.FirstOrDefault(rp => rp.RentalPropertyId == id);
+			var rentalProperty = _context.RentalProperty.FirstOrDefault(rp => rp.RentalProperty_id == id);
 
 			if (rentalProperty == null)
 			{

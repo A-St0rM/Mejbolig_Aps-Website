@@ -20,7 +20,8 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
             _jwtService = jwtService;
         }
 
-        [HttpPost("login")]
+        [HttpPost]
+        [Route("login")]
         public IActionResult Login([FromBody] LogingRequestDTO loginRequest)
         {
             if (loginRequest == null || string.IsNullOrEmpty(loginRequest.UserName) || string.IsNullOrEmpty(loginRequest.Password))
@@ -48,13 +49,15 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
         }
 
 
-        [HttpPost("logout")]
+        [HttpPost]
+        [Route("logout")]
 		public IActionResult Logout() {
 			HttpContext.Session.Remove("isAuthenticated");
             return Ok(new { Message = "Logout successful." });
         }
 
-		[HttpGet("isAuthenticated")]
+		[HttpGet]
+        [Route("isAuthenticated")]
 		public IActionResult IsAuthenticated() {
             var isAuthenticated = HttpContext.Session.GetString("isAuthenticated");
 
