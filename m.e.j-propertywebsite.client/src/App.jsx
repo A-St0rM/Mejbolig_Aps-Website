@@ -29,7 +29,7 @@ function PrivateRoute({ children }) {
 	} catch (err) {
 		localStorage.removeItem('token');
 		localStorage.removeItem('isAuthenticated');
-		return <Navigate to="/login" />;
+		return <Navigate to="/login" />; 
 	}
 }
 
