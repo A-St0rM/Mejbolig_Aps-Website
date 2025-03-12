@@ -19,7 +19,7 @@ namespace M.E.J_PropertyWebsite.Server.Models
 
 		public PropertyPrice PropertyPrice { get; set; }
 
-		public RentalProperty(int RentalProperty_id, string propertyName, string propertyAddress, string description, double propertySquareFootage, bool isAvailable, bool petsAllowed, int propertyRoomSize, DateTime dateAvailable)
+		public RentalProperty(int RentalProperty_id, string propertyName, string propertyAddress, string description, double propertySquareFootage, bool isAvailable, bool petsAllowed, int propertyRoomSize, DateTime dateAvailable, PropertyType propertyType)
 		{
 			this.RentalProperty_id = RentalProperty_id;
 			this.PropertyName = propertyName;
