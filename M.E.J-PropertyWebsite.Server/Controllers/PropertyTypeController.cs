@@ -40,7 +40,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
         [Route("DeletePropertyType/{id}")]
         public IActionResult DeletePropertyType(int id)
         {
-            var propertyType = _context.PropertyType.FirstOrDefault(p => p.Id == id);
+            var propertyType = _context.PropertyType.FirstOrDefault(p => p.PropertyTypeId == id);
             if (propertyType == null)
             {
                 return NotFound();
