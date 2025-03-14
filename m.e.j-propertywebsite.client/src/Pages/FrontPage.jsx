@@ -69,17 +69,16 @@ function FrontPage() {
 			</div>
 
 			<br />
-			<div className="third-content">
-				<div className="third-content-text">
-					<h1 className="third-title" >Information til lejere</h1>
+			<div className="second-content flipped">
+				<img ref={imageRef} className={`second-content-image ${isVisible ? 'show' : ''}`} src="src/assets/mejbolig_indoors.jpg" alt="bolig indendørs" />
 
-
-
+				<div className="second-content-text">
+					<h1 className="title">Velkommen til Mejbolig</h1>
+					<p className="text">Velkommen til vores skønne kvarter!...</p>
+					<Button text="Om os" to="/About" />
 				</div>
-
-
-
 			</div>
+
 
 
 		

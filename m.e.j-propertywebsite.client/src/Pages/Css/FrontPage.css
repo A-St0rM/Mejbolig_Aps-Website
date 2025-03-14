@@ -68,12 +68,21 @@
     }
 }
 
-.second-content{
+.second-content {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 50px;
+    gap: 2rem; /* Adds spacing between text and image */
 }
+
+
+.flipped {
+    flex-direction: row-reverse; /* Swaps image and text */
+    background-color: #39404A;
+    padding: 80px 10%;
+}
+
 
 .title{
     font-size: 2.5rem;
@@ -101,7 +110,7 @@
 }
 
 .second-content-image {
-    width: 50%;
+    width: 40%;
     opacity: 0; /* Start hidden */
     transition: opacity 1s ease-out, transform 1s ease-out;
 }
