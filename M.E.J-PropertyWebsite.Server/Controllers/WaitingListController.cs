@@ -40,7 +40,7 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
         [Route("RemoveFromWaitingList/{id}")]
         public IActionResult RemoveFromWaitingList(int id)
         {
-            var waitingList = _context.WaitlingList.FirstOrDefault(w => w.Id == id);
+            var waitingList = _context.WaitlingList.FirstOrDefault(w => w.WaitingListId == id);
             if (waitingList == null)
             {
                 return NotFound();

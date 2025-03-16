@@ -8,8 +8,29 @@ import Login from './pages/Login';
 import AdminFrontPage from './pages/AdminFrontPage';
 
 function PrivateRoute({ children }) {
-	const isAuthenticated = localStorage.getItem('isAuthenticated');
-	return isAuthenticated ? children : <Navigate to="/login" />;
+	const token = localStorage.getItem('token');
+
+	if (!token) {
+		return <Navigate to="/login" />;
+	}
+
+	try {
+		const payload = JSON.parse(atob(token.split('.')[1]));
+		const isTokenExpired = payload.exp * 1000 < Date.now();
+
+		if (isTokenExpired) {
+			localStorage.removeItem('token');
+			localStorage.removeItem('isAuthenticated');
+			return <Navigate to="/login" />;
+		}
+
+		return children;
+
+	} catch (err) {
+		localStorage.removeItem('token');
+		localStorage.removeItem('isAuthenticated');
+		return <Navigate to="/login" />; 
+	}
 }
 
 function App() {
