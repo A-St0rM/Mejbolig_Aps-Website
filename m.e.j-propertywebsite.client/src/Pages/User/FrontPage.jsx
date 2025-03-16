@@ -1,8 +1,7 @@
-
-import './Css/FrontPage.css';
+ï»¿import '../Css/FrontPage.css';
 import React, { useEffect, useRef, useState } from 'react';
 import Header from '../../Componets/Headers/Header';
-import Button from '../../Componets/Button';
+import Button from '../../Componets/Buttons/Button';
 import CounterPropertyCard from '../../Componets/Cards/CounterPropertyCard';
 import Footer from '../../Componets/Footer'; 
 
@@ -57,26 +56,26 @@ function FrontPage() {
             <div className="second-content">
                 <div className="second-content-text">
                     <h1 className="title">Velkommen til Mejbolig</h1>
-                    <p className="text">Velkommen til vores skønne kvarter!
-                        Her finder du et trygt og levende fællesskab med naturskønne omgivelser, gode naboer og moderne faciliteter.
-                        Uanset om du allerede bor her eller overvejer at flytte hertil, kan du på denne side finde information om kvarterets fællesskab, aktiviteter og praktiske oplysninger.</p>
+                    <p className="text">Velkommen til vores skÃ¸nne kvarter!
+                        Her finder du et trygt og levende fÃ¦llesskab med naturskÃ¸nne omgivelser, gode naboer og moderne faciliteter.
+                        Uanset om du allerede bor her eller overvejer at flytte hertil, kan du pÃ¥ denne side finde information om kvarterets fÃ¦llesskab, aktiviteter og praktiske oplysninger.</p>
                     <Button text="Om os" to="/About" />
                 </div>
                 <img
                     ref={imageRef}
                     className={`second-content-image ${isVisible ? 'show' : ''}`}
                     src="src/assets/mejbolig_indoors.jpg"
-                    alt="bolig indendørs"
+                    alt="bolig indendÃ¸rs"
                 />
             </div>
 
             <br />
             <div className="second-content flipped">
-                <img ref={imageRef} className={`second-content-image ${isVisible ? 'show' : ''}`} src="src/assets/mejbolig_indoors.jpg" alt="bolig indendørs" />
+                <img ref={imageRef} className={`second-content-image ${isVisible ? 'show' : ''}`} src="src/assets/mejbolig_indoors.jpg" alt="bolig indendÃ¸rs" />
 
                 <div className="second-content-text">
                     <h1 className="title">Velkommen til Mejbolig</h1>
-                    <p className="text">Velkommen til vores skønne kvarter!...</p>
+                    <p className="text">Velkommen til vores skÃ¸nne kvarter!...</p>
                     <Button text="Om os" to="/About" />
                 </div>
             </div>

@@ -8,7 +8,9 @@ function Header() {
     return (
         <nav className="unique-header-container">
             <div className="logo">
-                <img src="src\assets\Logo_Mejbolig_orange.png" alt="M.E.J Logo" height="50px"/>
+                <Link to="/">
+                    <img src="src\assets\Logo_Mejbolig_orange.png" alt="M.E.J Logo" height="50px" />
+                </Link>
             </div>
             <ul className="unique-header-list">
                 <li className={`unique-header-item ${location.pathname === '/availableRentals' ? 'active' : ''}`}>

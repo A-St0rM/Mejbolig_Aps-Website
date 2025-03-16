@@ -1,6 +1,6 @@
-import React from 'react';
+ï»¿import React from 'react';
 import Header from '../../Componets/Headers/Header';
-import './Css/About.css';
+import '../Css/About.css';
 
 function About() {
     return (
@@ -8,7 +8,7 @@ function About() {
             <Header />
             <div className="about-container">
 		        <h1>Om os</h1>
-		        <p>Vi er en virksomhed, der har specialiseret sig i at formidle lejemål mellem udlejer og lejer. Vi har mange års erfaring, og vi har et stort netværk af</p>
+		        <p>Vi er en virksomhed, der har specialiseret sig i at formidle lejemÃ¥l mellem udlejer og lejer. Vi har mange Ã¥rs erfaring, og vi har et stort netvÃ¦rk af</p>
             </div>
       </div>
   );
