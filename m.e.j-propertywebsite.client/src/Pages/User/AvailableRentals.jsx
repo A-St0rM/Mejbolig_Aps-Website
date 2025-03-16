@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Menu from '../Componets/Menu';
-import Rental from '../Componets/Cards/Rental';
+import Header from '../../Componets/Headers/Header';
+import Rental from '../../Componets/Cards/Rental';
 import './Css/AvailableRentals.css';
 import testImage from '../assets/test.jpg';
 
@@ -74,7 +74,7 @@ function AvailableRentals() {
 
     return (
         <div>
-            <Menu />
+            <Header />
             <div className="available-rentals-container">
                 <h1>Tilgængelige Lejemål</h1>
                 <div className="filters">

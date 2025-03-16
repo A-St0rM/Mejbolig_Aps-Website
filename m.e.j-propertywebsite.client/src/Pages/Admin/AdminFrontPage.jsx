@@ -1,5 +1,5 @@
 import "./Css/AdminFrontPage.css";
-import AdminMenu from "../Componets/AdminMenu";
+import AdminMenu from '../../Componets/Headers/AdminMenu';
 
 function AdminFrontPage() {
     return (

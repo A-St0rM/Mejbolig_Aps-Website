@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import FrontPage from './pages/FrontPage';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import AvailableRentals from './pages/AvailableRentals';
-import Login from './pages/Login';
-import AdminFrontPage from './pages/AdminFrontPage';
+import FrontPage from './Pages/User/FrontPage';
+import About from './Pages/User/About';
+import Contact from './Pages/User/Contact';
+import AvailableRentals from './Pages/User/AvailableRentals';
+import Login from './Pages/Admin/Login';
+import AdminFrontPage from './Pages/Admin/AdminFrontPage';
 
 function PrivateRoute({ children }) {
 	const isAuthenticated = localStorage.getItem('isAuthenticated');

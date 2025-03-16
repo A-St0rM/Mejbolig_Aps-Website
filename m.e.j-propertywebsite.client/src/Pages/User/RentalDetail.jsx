@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Menu from '../Componets/Menu';
+import Header from '../../Componets/Headers/Header';
 import './Css/RentalDetail.css';
 
 function RentalDetail() {
@@ -19,7 +19,7 @@ function RentalDetail() {
 
     return (
         <div>
-            <Menu />
+            <Header />
             <div className="rental-detail-container">
                 <h1>{property.propertyName}</h1>
                 <img src={property.imageUrl} alt={property.propertyName} className="rental-detail-image" />

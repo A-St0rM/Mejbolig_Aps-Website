@@ -1,11 +1,11 @@
 import React from 'react';
-import Menu from '../Componets/Menu';
+import Header from '../../Componets/Headers/Header';
 import './Css/About.css';
 
 function About() {
     return (
         <div>
-            <Menu />
+            <Header />
             <div className="about-container">
 		        <h1>Om os</h1>
 		        <p>Vi er en virksomhed, der har specialiseret sig i at formidle lejemål mellem udlejer og lejer. Vi har mange års erfaring, og vi har et stort netværk af</p>

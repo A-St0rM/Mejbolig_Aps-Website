@@ -37,7 +37,7 @@
     height: 100%;
     object-fit: cover;
     animation: slide-in 1.3s ease-out;
-    z-index: -1; /* Ensures the image is behind the text */
+    z-index: -1;
 }
 
 .titel-text {

@@ -4,10 +4,11 @@
     font-size: 1.2rem;
     font-weight: bold;
     border: none;
-    padding: 12px 24px; /* Juster padding for bedre form */
+    padding: 16px 26px; /* Juster padding for bedre form */
     border-radius: 10px;
     cursor: pointer;
     text-align: center;
+    font-family: 'Rockwell Nova', sans-serif;   
     display: inline-block;
     transition: all 0.3s ease-in-out;
     text-decoration: none;

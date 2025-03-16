@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.unique-header-container {
+    background-color: #39404A;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky; /* Make the header sticky */
+    top: 0; /* Stick to the top of the viewport */
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 3rem;
+}
+
+.unique-header-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 3rem;
+}
+
+.unique-header-item {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Rockwell Nova', sans-serif;
+    cursor: pointer;
+    color: #ffffff;
+    position: relative; /* Needed for the underline effect */
+    transition: transform 0.2s ease;
+}
+
+.unique-header-item a {
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+/* Underline animation effect */
+.unique-header-item a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: #D16C1C;
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.unique-header-item:hover a::after {
+    width: 100%;
+    left: 0;
+}
+
+.unique-header-item:hover {
+    transform: scale(1.05);
+}
+
+.unique-header-item.active a {
+    color: #38bdf8;
+}
+
+/* Dropdown-menu */
+.sub-header {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #39404A;
+    padding: 0.5rem 0;
+    border-radius: 4px;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    list-style: none; /* Remove bullet points */
+    margin: 0;
+    padding: 0; 
+}
+
+.sub-header-item {
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+}
+
+.sub-header-item a {
+    color: #ffffff;
+    display: block;
+    transition: color 0.3s;
+}
+
+.sub-header-item a:hover {
+    color: #38bdf8;
+}
+
+/* Show dropdown menu on hover */
+.unique-header-item:hover .sub-header {
+    display: block;
+}
