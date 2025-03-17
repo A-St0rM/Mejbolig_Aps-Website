@@ -95,12 +95,11 @@ function FrontPage() {
                 </div>
                 <br />
                 <div className="third-content">
-                    <img
-                        ref={imageRef}
-                        className={`third-content-image ${isVisible ? 'show' : ''}`}
-                        src="src/assets/mejbolig_indoors.jpg"
-                        alt="bolig indendørs"
-                    />
+                    <div className="third-content-images">
+                        <img ref={imageRef} className={`third-content-image img1 ${isVisible ? 'show' : ''}`} src="src/assets/mejbolig_indoors.jpg" alt="bolig indendørs" />
+                        <img ref={imageRef} className={`third-content-image img2 ${isVisible ? 'show' : ''}`} src="src/assets/mejbolig_indoors.jpg" alt="bolig indendørs" />
+                        <img ref={imageRef} className={`third-content-image img3 ${isVisible ? 'show' : ''}`} src="src/assets/mejbolig_indoors.jpg" alt="bolig indendørs" />
+                    </div>
                     <div className="third-content-text">
                         <h1 className="third-title">Velkommen til Mejbolig</h1>
                         <p className="third-text">Velkommen til vores skønne kvarter! Her finder du:</p>
