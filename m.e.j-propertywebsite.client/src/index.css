@@ -13,6 +13,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Standard container for alle sider */
+.page-container header {
+    max-width: 1200px; 
+    margin: 0 auto; /* Centrerer indhold */
+    padding: 0 2rem; 
+}
+
+/* Udeluk specifikke sektioner */
+.header, .third-content, .main-background, .unique-header-container {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+}
+
 
 a {
   font-weight: 500;

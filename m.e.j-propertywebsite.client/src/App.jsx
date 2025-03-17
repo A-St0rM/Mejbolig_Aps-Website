@@ -6,6 +6,7 @@ import Contact from './Pages/User/Contact';
 import AvailableRentals from './Pages/User/AvailableRentals';
 import Login from './Pages/Admin/Login';
 import AdminFrontPage from './Pages/Admin/AdminFrontPage';
+import InformationForTenants from './Pages/User/InformationForTenants';
 
 function PrivateRoute({ children }) {
 	const isAuthenticated = localStorage.getItem('isAuthenticated');
@@ -22,6 +23,7 @@ function App() {
 				<Route path="/availableRentals" element={<AvailableRentals />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/admin" element={<PrivateRoute><AdminFrontPage /></PrivateRoute>} />
+				<Route path="/InformationForTenants" element={<InformationForTenants />} />
 			</Routes>
 		</div>
 	);

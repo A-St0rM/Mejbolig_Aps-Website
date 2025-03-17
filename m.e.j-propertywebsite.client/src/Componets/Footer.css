@@ -3,7 +3,7 @@
 .footer {
     background-color: #39404A;
     color: white;
-    padding: 40px 0;
+    padding: 20px 0; /* Reduced padding */
     text-align: center;
     position: relative;
     bottom: 0;
@@ -14,17 +14,17 @@
 .footer-content {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center; /* Center align items */
     flex-wrap: wrap;
-    padding: 0 10%;
+    padding: 0 5%; /* Reduced padding */
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .footer-links, .footer-social {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-direction: row; /* Changed to row */
+    gap: 1rem; /* Reduced gap */
 }
 
 .footer-links a, .footer-social a {
@@ -36,11 +36,11 @@
 
 .footer-links a:hover, .footer-social a:hover {
     color: #ff6a00;
-    transform: translateX(5px);
+    transform: translateY(-2px); /* Slightly lift on hover */
 }
 
 .footer-bottom {
-    margin-top: 20px;
+    margin-top: 10px; /* Reduced margin */
     border-top: 1px solid #555;
     padding-top: 10px;
     font-size: 12px;
@@ -48,7 +48,7 @@
 }
 
 .footer-logo {
-    margin-bottom: 20px;
+    margin-bottom: 10px; /* Reduced margin */
 }
 
 .footer-logo img {
@@ -57,12 +57,12 @@
 
 .footer-column {
     flex: 1;
-    min-width: 200px;
-    margin-bottom: 20px;
+    min-width: 150px; /* Reduced min-width */
+    margin-bottom: 10px; /* Reduced margin */
 }
 
 .footer-column h4 {
-    margin-bottom: 10px;
+    margin-bottom: 5px; /* Reduced margin */
     font-size: 16px;
     color: #ff6a00; /* Orange color for headings */
 }
