@@ -7,6 +7,7 @@ import AvailableRentals from './pages/AvailableRentals';
 import Login from './pages/Login';
 import AdminFrontPage from './pages/AdminFrontPage';
 
+
 function PrivateRoute({ children }) {
 	const token = localStorage.getItem('token');
 
