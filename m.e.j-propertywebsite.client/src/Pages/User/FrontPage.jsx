@@ -1,5 +1,5 @@
 ﻿import '../Css/FrontPage.css';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Header from '../../Componets/Headers/Header';
 import Button from '../../Componets/Buttons/Button';
 import CounterPropertyCard from '../../Componets/Cards/CounterPropertyCard';

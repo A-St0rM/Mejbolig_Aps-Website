@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import Header from '../../Componets/Headers/Header';
 import Rental from '../../Componets/Cards/Rental';
 import '../Css/AvailableRentals.css';

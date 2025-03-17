@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import FrontPage from './Pages/User/FrontPage';
 import About from './Pages/User/About';
 import Contact from './Pages/User/Contact';
@@ -12,6 +12,10 @@ function PrivateRoute({ children }) {
 	const isAuthenticated = localStorage.getItem('isAuthenticated');
 	return isAuthenticated ? children : <Navigate to="/login" />;
 }
+
+PrivateRoute.propTypes = {
+	children: PropTypes.node.isRequired,
+};
 
 function App() {
 	return (
