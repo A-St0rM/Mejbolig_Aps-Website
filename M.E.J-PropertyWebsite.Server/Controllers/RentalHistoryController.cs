@@ -2,9 +2,11 @@
 using M.E.J_PropertyWebsite.Server.Database;
 using M.E.J_PropertyWebsite.Server.Models;
 using M.E.J_PropertyWebsite.Server.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace M.E.J_PropertyWebsite.Server.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RentalHistoryController : ControllerBase

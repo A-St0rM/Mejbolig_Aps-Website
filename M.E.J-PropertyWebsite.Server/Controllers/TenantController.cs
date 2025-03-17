@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using M.E.J_PropertyWebsite.Server.Models;
 using M.E.J_PropertyWebsite.Server.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace M.E.J_PropertyWebsite.Server.Controllers
 {
-	[ApiController]
+    [Authorize]
+    [ApiController]
 	[Route("api/[controller]")]
 	public class TenantController : ControllerBase
 	{
