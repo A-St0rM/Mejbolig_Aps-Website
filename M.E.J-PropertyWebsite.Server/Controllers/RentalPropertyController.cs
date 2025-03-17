@@ -36,13 +36,18 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
                     PetsAllowed = rp.PetsAllowed,
                     PropertyRoomSize = rp.PropertyRoomSize,
                     DateAvailable = rp.DateAvailable,
-                    PropertyPrice = rp.PropertyPrice != null ? new PropertyPriceDTO
+                    PropertyPrice = new PropertyPriceDTO
                     {
                         Deposit = rp.PropertyPrice.Deposit,
                         RentalPrice = rp.PropertyPrice.RentalPrice,
                         Aconto = rp.PropertyPrice.Aconto,
-                        PropertyPriceId = rp.PropertyPrice.RentalProperty_id
-                    } : null
+                        PropertyPriceId = rp.PropertyPrice.Price_Id
+                    },
+                    ProptertyType = new PropertyTypeDTO
+                    {
+                        Id = rp.PropertyType.PropertyTypeId,
+                        Name = rp.PropertyType.PropertyTypeName
+                    }
                 })
                 .ToList();
 
@@ -72,6 +77,11 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
                         RentalPrice = rp.PropertyPrice.RentalPrice,
                         Aconto = rp.PropertyPrice.Aconto,
                         PropertyPriceId = rp.PropertyPrice.Price_Id
+                    },
+                    ProptertyType = new PropertyTypeDTO
+                    {
+                        Id = rp.PropertyType.PropertyTypeId,
+                        Name = rp.PropertyType.PropertyTypeName
                     }
                 })
 				.FirstOrDefault();
@@ -111,6 +121,11 @@ namespace M.E.J_PropertyWebsite.Server.Controllers
                     RentalPrice = rentalPropertyDTO.PropertyPrice.RentalPrice,
                     Aconto = rentalPropertyDTO.PropertyPrice.Aconto,
                     Price_Id = rentalPropertyDTO.PropertyPrice.PropertyPriceId
+                },
+                ProptertyType = new PropertyType
+                {
+                    Id = rp.PropertyType.PropertyTypeId,
+                    Name = rp.PropertyType.PropertyTypeName
                 }
             };
 

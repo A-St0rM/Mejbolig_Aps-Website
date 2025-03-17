@@ -13,6 +13,7 @@
         public DateTime DateAvailable { get; set; }
       
         public PropertyPriceDTO PropertyPrice { get; set; }
+        public PropertyTypeDTO ProptertyType { get; set; }
 
     }
 }
