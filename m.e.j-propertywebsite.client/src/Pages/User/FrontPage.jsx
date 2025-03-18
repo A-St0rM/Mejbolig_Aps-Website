@@ -10,6 +10,7 @@ function FrontPage() {
 
     const imageRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
+    const [expandedItems, setExpandedItems] = useState([]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -33,10 +34,18 @@ function FrontPage() {
         };
     }, []);
 
+    const toggleItem = (index) => {
+        setExpandedItems((prev) => {
+            const newExpandedItems = [...prev];
+            newExpandedItems[index] = !newExpandedItems[index];
+            return newExpandedItems;
+        });
+    };
+
     const dummyRentals = [
         {
             rentalPropertyId: 1,
-            imageUrl: 'src/assets/rental1.jpg',
+            imageUrl: 'src/assets/test.jpg',
             propertyName: 'Property 1',
             propertyAddress: 'Address 1',
             rentalPrice: 1000,
@@ -44,7 +53,7 @@ function FrontPage() {
         },
         {
             rentalPropertyId: 2,
-            imageUrl: 'src/assets/rental2.jpg',
+            imageUrl: 'src/assets/test.jpg',
             propertyName: 'Property 2',
             propertyAddress: 'Address 2',
             rentalPrice: 2000,
@@ -52,7 +61,7 @@ function FrontPage() {
         },
         {
             rentalPropertyId: 3,
-            imageUrl: 'src/assets/rental3.jpg',
+            imageUrl: 'src/assets/test.jpg',
             propertyName: 'Property 3',
             propertyAddress: 'Address 3',
             rentalPrice: 3000,
@@ -101,13 +110,23 @@ function FrontPage() {
                         <img ref={imageRef} className={`third-content-image img3 ${isVisible ? 'show' : ''}`} src="src/assets/mejbolig_indoors.jpg" alt="bolig indendørs" />
                     </div>
                     <div className="third-content-text">
-                        <h1 className="third-title">Velkommen til Mejbolig</h1>
-                        <p className="third-text">Velkommen til vores skønne kvarter! Her finder du:</p>
+                        <h1 className="third-title">Information til lejere</h1>
+                        <p className="third-text">Velkommen til Mejbolig ApS – din pålidelige partner i boligudlejning. Vi tilbyder en række forskellige boligtyper og hjælper dig gennem hele lejeprocessen. Her er nogle vigtige informationer for dig som lejer:</p>
                         <ul className="third-list">
-                            <li className="third-list-item">Trygt og levende fællesskab</li>
-                            <li className="third-list-item">Naturskønne omgivelser</li>
-                            <li className="third-list-item">Gode naboer</li>
-                            <li className="third-list-item">Moderne faciliteter</li>
+                            {[
+                                "Lejekontrakter: Vi tilbyder fleksible lejekontrakter, der passer til dine behov. Alle kontrakter er klart formuleret, så du ved, hvad du kan forvente.",
+                                "Depositum og forudbetalt leje: Som en del af lejeaftalen kræves et depositum og forudbetalt leje. Det vil fremgå klart af din kontrakt, hvad der gælder for din bolig.",
+                                "Reparationer og vedligeholdelse: Vi sørger for, at din bolig altid er i god stand. Hvis du opdager fejl eller mangler, kan du hurtigt kontakte os for at få dem løst.",
+                                "Betaling: Lejen skal betales månedligt. Betalingsoplysninger og tidsfrister fremgår af din lejekontrakt."
+                            ].map((item, index) => (
+                                <li key={index} className={`third-list-item ${expandedItems[index] ? 'expanded' : ''}`}>
+                                    <div className="list-header" onClick={() => toggleItem(index)}>
+                                        <span className={`arrow ${expandedItems[index] ? 'expanded' : ''}`}>&#9660;</span>
+                                        <span className="list-title">{item.split(":")[0]}</span>
+                                    </div>
+                                    <div className={`expanded-text ${expandedItems[index] ? 'show' : ''}`}>{item.split(":")[1]}</div>
+                                </li>
+                            ))}
                         </ul>
                         <Button text="Information om lejere" to="/InformationForTenants" />
                     </div>
@@ -129,3 +148,5 @@ function FrontPage() {
 }
 
 export default FrontPage;
+
+
