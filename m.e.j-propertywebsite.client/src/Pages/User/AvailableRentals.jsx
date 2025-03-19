@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Menu from '../Componets/Menu';
-import Rental from '../Componets/Cards/Rental';
-import './Css/AvailableRentals.css';
-import testImage from '../assets/test.jpg';
+ï»¿import { useState, useEffect } from 'react';
+import Header from '../../Componets/Headers/Header';
+import Rental from '../../Componets/Cards/Rental';
+import '../Css/AvailableRentals.css';
+import testImage from '../../assets/test.jpg';
 
 function AvailableRentals() {
     const [properties, setProperties] = useState([]);
@@ -74,9 +74,9 @@ function AvailableRentals() {
 
     return (
         <div>
-            <Menu />
+            <Header />
             <div className="available-rentals-container">
-                <h1>Tilgængelige Lejemål</h1>
+                <h1>TilgÃ¦ngelige LejemÃ¥l</h1>
                 <div className="filters">
                     <input
                         type="number"

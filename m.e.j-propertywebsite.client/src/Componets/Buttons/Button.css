@@ -1,0 +1,26 @@
+.orange-button {
+    background-color: #D16C1C;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    padding: 16px 26px; /* Juster padding for bedre form */
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Rockwell Nova', sans-serif;   
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+
+}
+
+    .orange-button button {
+        all: unset; /* Fjerner default browser-styling */
+    }
+
+   
+    .orange-button:hover {
+        background-color: #B95E18; 
+        transform: scale(1.05);
+    }
