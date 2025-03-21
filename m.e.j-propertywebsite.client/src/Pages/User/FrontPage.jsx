@@ -7,7 +7,6 @@ import Footer from '../../Componets/Footer';
 import Rental from '../../Componets/Cards/Rental';
 
 function FrontPage() {
-
     const imageRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
     const [expandedItems, setExpandedItems] = useState([]);
@@ -70,7 +69,7 @@ function FrontPage() {
     ];
 
     return (
-        <div>
+        <>
             <Header />
             <div className="page-container">
                 <div className="front-page-content">
@@ -82,10 +81,9 @@ function FrontPage() {
                         <Button text="Find din bolig!" to="/availableRentals" />
                     </div>
                 </div>
-                <div className="card">
-                    <CounterPropertyCard />
-                </div>
-                <br />
+
+                <CounterPropertyCard />
+
                 <div className="second-content">
                     <div className="second-content-text">
                         <h1 className="title">Velkommen til Mejbolig</h1>
@@ -102,12 +100,18 @@ function FrontPage() {
                         alt="bolig indendørs"
                     />
                 </div>
-                <br />
+
                 <div className="third-content">
                     <div className="third-content-images">
-                        <img ref={imageRef} className={`third-content-image img1 ${isVisible ? 'show' : ''}`} src="src/assets/mejbolig_indoors.jpg" alt="bolig indendørs" />
-                        <img ref={imageRef} className={`third-content-image img2 ${isVisible ? 'show' : ''}`} src="src/assets/mejbolig_indoors.jpg" alt="bolig indendørs" />
-                        <img ref={imageRef} className={`third-content-image img3 ${isVisible ? 'show' : ''}`} src="src/assets/mejbolig_indoors.jpg" alt="bolig indendørs" />
+                        {Array(3).fill().map((_, i) => (
+                            <img
+                                key={i}
+                                ref={imageRef}
+                                className={`third-content-image img${i + 1} ${isVisible ? 'show' : ''}`}
+                                src="src/assets/mejbolig_indoors.jpg"
+                                alt="bolig indendørs"
+                            />
+                        ))}
                     </div>
                     <div className="third-content-text">
                         <h1 className="third-title">Information til lejere</h1>
@@ -118,20 +122,23 @@ function FrontPage() {
                                 "Depositum og forudbetalt leje: Som en del af lejeaftalen kræves et depositum og forudbetalt leje. Det vil fremgå klart af din kontrakt, hvad der gælder for din bolig.",
                                 "Reparationer og vedligeholdelse: Vi sørger for, at din bolig altid er i god stand. Hvis du opdager fejl eller mangler, kan du hurtigt kontakte os for at få dem løst.",
                                 "Betaling: Lejen skal betales månedligt. Betalingsoplysninger og tidsfrister fremgår af din lejekontrakt."
-                            ].map((item, index) => (
-                                <li key={index} className={`third-list-item ${expandedItems[index] ? 'expanded' : ''}`}>
-                                    <div className="list-header" onClick={() => toggleItem(index)}>
-                                        <span className={`arrow ${expandedItems[index] ? 'expanded' : ''}`}>&#9660;</span>
-                                        <span className="list-title">{item.split(":")[0]}</span>
-                                    </div>
-                                    <div className={`expanded-text ${expandedItems[index] ? 'show' : ''}`}>{item.split(":")[1]}</div>
-                                </li>
-                            ))}
+                            ].map((item, index) => {
+                                const [title, text] = item.split(":");
+                                return (
+                                    <li key={index} className={`third-list-item ${expandedItems[index] ? 'expanded' : ''}`}>
+                                        <div className="list-header" onClick={() => toggleItem(index)}>
+                                            <span className={`arrow ${expandedItems[index] ? 'expanded' : ''}`}>&#9660;</span>
+                                            <span className="list-title">{title}</span>
+                                        </div>
+                                        <div className={`expanded-text ${expandedItems[index] ? 'show' : ''}`}>{text}</div>
+                                    </li>
+                                );
+                            })}
                         </ul>
                         <Button text="Information om lejere" to="/InformationForTenants" />
                     </div>
                 </div>
-                <br />
+
                 <div className="rental-section">
                     <h2 className="rental-section-title">Flyt Ind Nu! Se Alle Tilgængelige Lejemål</h2>
                     <div className="rental-cards">
@@ -141,12 +148,10 @@ function FrontPage() {
                     </div>
                 </div>
             </div>
-            <br />
+
             <Footer />
-        </div>
+        </>
     );
 }
 
 export default FrontPage;
-
-
