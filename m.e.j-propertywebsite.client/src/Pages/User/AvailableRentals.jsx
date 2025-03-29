@@ -15,6 +15,22 @@ function AvailableRentals() {
     });
 
     useEffect(() => {
+        fetch('https://localhost:7265/api/GetRentalProperties')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error: Could not get properties");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setProperties(data.rentalProperty);
+            })
+            .catch((error) => {
+                console.error('Fetch error:', error);
+            });
+    }, []); 
+
+    useEffect(() => {
         const dummyData = [
             {
                 rentalPropertyId: 1,
